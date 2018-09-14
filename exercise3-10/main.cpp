@@ -14,7 +14,6 @@ bool eq(pii a,pii b)    {
     else return false;
 }
 int main()  {
-    //freopen("output.txt","wa",stdout);
     int cnt=0;
     pii tp;
     while (scanf("%d %d",&tp.first,&tp.second)!=EOF)    {
