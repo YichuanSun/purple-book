@@ -1,52 +1,25 @@
-#include <bits/stdc++.h>
-#define INF 100100100
-using namespace std;
-vector<int> v;
-int main()  {
-    freopen("output.txt","wa",stdout);
-    string s,t;
-    while (cin>>s&&!s.empty())  {
-        cin>>t;
-        for (int i=(int)s.size()-1;i>=0;i--)   {
-            int j;
-            for (j=0;j<(int)t.size();j++)   {
-                if (i+j>=s.size())  continue;
-                if (s[i+j]=='2'&&t[j]=='2') break;
-            }
-            if (j==t.size())    v.push_back(i+(int)t.size());
+#include<cstdio>
+#include<cstring>
+const int maxn=100;
+char a[maxn+1],b[maxn+1];
+int n1,n2;
+int min(const int &i,const int &j){
+    return i<j?i:j;
+}
+int minLen(char *s1,char *s2,int &n){// n为s1的长度
+    int sumLen=n1+n2,minn=min(n1,n2),len=sumLen;
+    for(int i=0;i<n;i++){
+        int ok=1,fix=min(n-i,minn);//fix的计算是一个难点
+        for(int j=0;j<fix;j++)if(s1[i+j]=='2'&&s2[j]=='2'){
+            ok=0;break;
         }
-        for (int i=(int)t.size()-1;i>=0;i--)    {
-            int j;
-            for (j=0;j<(int)s.size()-1;j++) {
-                if (i+j>=t.size())  continue;
-                if (s[j]=='2'&&t[i+j]=='2') break;
-            }
-            if (j==s.size())    v.push_back(i+(int)s.size());
-        }
-        reverse(t.begin(),t.end());
-        for (int i=(int)s.size()-1;i>=0;i--)   {
-            int j;
-            for (j=0;j<(int)t.size();j++)   {
-                if (i+j>=s.size())  continue;
-                if (s[i+j]=='2'&&t[j]=='2') break;
-            }
-            if (j==t.size())    v.push_back(i+(int)t.size());
-        }
-        for (int i=(int)t.size()-1;i>=0;i--)    {
-            int j;
-            for (j=0;j<(int)s.size()-1;j++) {
-                if (i+j>=t.size())  continue;
-                if (s[j]=='2'&&t[i+j]=='2') break;
-            }
-            if (j==s.size())    v.push_back(i+(int)s.size());
-        }
-        int ans=INF;
-        for (int i=0;i<(int)v.size();i++)
-            if (v[i]<ans)   ans=v[i];
-        if (ans==INF)   cout<<s.size()+t.size()<<endl;
-        else if (ans>max(s.size(),t.size()))    cout<<ans<<endl;
-        else    cout<<max(s.size(),t.size())<<endl;
-        v.clear();
+        if(ok&&len>sumLen-fix)len=sumLen-fix;
     }
-    return 0;
+    return len;
+}
+int main(){
+    while(scanf("%s%s",&a,&b)==2){
+        n1=strlen(a),n2=strlen(b);//无意中用到了逗号运算符
+        printf("%d\n",min(minLen(a,b,n1),minLen(b,a,n2)));//用min函数取两次结果的最小值
+    }
 }
