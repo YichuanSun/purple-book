@@ -12,33 +12,42 @@ int n,xb,yb,tx,ty;
 int main()  {
     char pe;
     cin>>n>>xb>>yb;
-    for (int i=0;i<n;i++)   {
-        cin>>pe>>tx>>ty;
-        cb[tx][ty]=pe;
-    }
-    for (int i=1;i<=10;i++) {
-        if (ok) break;
-        for (int j=1;j<=9;j++) {
-            if (ok) break;
-            switch(cb[i][j])    {
-                case 'G': opg(i,j);break;
-                case 'H': oph(i,j);break;
-                case 'C': opc(i,j);break;
-                case 'R': opr(i,j);break;
-            }
-            if (!cb[i][j])  {
-                cout<<"time"<<endl;
-                for (int i=1;i<=10;i++) {
-                    for (int j=1;j<=9;j++)
-                        cout<<' '<<fobd[i][j];
-                    cout<<endl;
+    while (n&&xb&&yb)   {
+        for (int i=0;i<n;i++)   {
+            cin>>pe>>tx>>ty;
+            cb[tx][ty]=pe;
+        }
+        for (int i=1;i<=10;i++) {
+            for (int j=1;j<=9;j++)
+                cout<<' '<<cb[i][j];
+            cout<<endl;
+        }
+        for (int i=1;i<=10;i++) {
+            for (int j=1;j<=9;j++) {
+                switch(cb[i][j])    {
+                    case 'G': opg(i,j);break;
+                    case 'H': oph(i,j);break;
+                    case 'C': opc(i,j);break;
+                    case 'R': opr(i,j);break;
+                }
+                if (cb[i][j])  {
+                    cout<<"time"<<endl;
+                    for (int i=1;i<=10;i++) {
+                        for (int j=1;j<=9;j++)
+                            cout<<' '<<fobd[i][j];
+                        cout<<endl;
+                    }
                 }
             }
         }
+        check(xb,yb);
+        if (ok) cout<<"NO"<<endl;
+        else    cout<<"YES"<<endl;
+        fill(cb[0],cb[0]+N*N,'\0');
+        fill(fobd[0],fobd[0]+N*N,false);
+        ok=false;
+        cin>>n>>xb>>yb;
     }
-    check(xb,yb);
-    if (ok) cout<<"NO"<<endl;
-    else    cout<<"YES"<<endl;
     return 0;
 }
 
@@ -107,10 +116,12 @@ void opc(int i,int j)   {
 
 void opg(int i,int j)   {
     int q=i-1;
-    for (;q>=1;q--) {
-        if (!cb[q][j]||(xb==q&&yb==j))  continue;
-        else for (int p=q;p<=i;p++)  fobd[p][j]=1;
+    while (q>0) {
+        if (cb[q][j])  break;
+        q--;
     }
+    if (q==0)   q++;
+    for (int it=q;it<i;it++)    fobd[it][j]=1;
 }
 
 void opr(int i,int j)   {
@@ -126,8 +137,8 @@ void opr(int i,int j)   {
 }
 
 void check(int i,int j) {
-    if (i+1<=10&&!fobd[i+1][j])  {ok=true;return;}
+    if (i+1<=3&&!fobd[i+1][j])  {ok=true;return;}
     if (i-1>=1&&!fobd[i-1][j])  {ok=true;return;}
-    if (j+1<=9&&!fobd[i][j+1])  {ok=true;return;}
-    if (j-1>=1&&!fobd[i][j-1])  {ok=true;return;}
+    if (j+1<=6&&!fobd[i][j+1])  {ok=true;return;}
+    if (j-1>=4&&!fobd[i][j-1])  {ok=true;return;}
 }
