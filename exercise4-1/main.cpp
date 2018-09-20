@@ -8,20 +8,29 @@ void opc(int i,int j);
 void opg(int i,int j);
 void opr(int i,int j);
 void check(int i,int j);
-int n,xb,yb,tx,ty;
+bool fg();
+int n=1,xb=1,yb=1,tx,ty,xr,yr;
 int main()  {
     char pe;
-    cin>>n>>xb>>yb;
     while (n&&xb&&yb)   {
+        cin>>n>>xb>>yb;
+        if (!n||!xb||!yb)   break;
         for (int i=0;i<n;i++)   {
             cin>>pe>>tx>>ty;
             cb[tx][ty]=pe;
+            if (pe=='G')    xr=tx,yr=ty;
         }
-        for (int i=1;i<=10;i++) {
-            for (int j=1;j<=9;j++)
-                cout<<' '<<cb[i][j];
-            cout<<endl;
+//        cout<<"xb="<<xb<<'\t'<<"yb="<<yb<<endl;
+//        cout<<"xr="<<xr<<'\t'<<"yr="<<yr<<endl;
+        if (fg())   {
+            cout<<"No"<<endl;
+            continue;
         }
+//        for (int i=1;i<=10;i++) {
+//            for (int j=1;j<=9;j++)
+//                cout<<' '<<cb[i][j];
+//            cout<<endl;
+//        }
         for (int i=1;i<=10;i++) {
             for (int j=1;j<=9;j++) {
                 switch(cb[i][j])    {
@@ -30,14 +39,14 @@ int main()  {
                     case 'C': opc(i,j);break;
                     case 'R': opr(i,j);break;
                 }
-                if (cb[i][j])  {
-                    cout<<"time"<<endl;
-                    for (int i=1;i<=10;i++) {
-                        for (int j=1;j<=9;j++)
-                            cout<<' '<<fobd[i][j];
-                        cout<<endl;
-                    }
-                }
+//                if (cb[i][j])  {
+//                    cout<<"time"<<endl;
+//                    for (int i=1;i<=10;i++) {
+//                        for (int j=1;j<=9;j++)
+//                            cout<<' '<<fobd[i][j];
+//                        cout<<endl;
+//                    }
+//                }
             }
         }
         check(xb,yb);
@@ -46,7 +55,6 @@ int main()  {
         fill(cb[0],cb[0]+N*N,'\0');
         fill(fobd[0],fobd[0]+N*N,false);
         ok=false;
-        cin>>n>>xb>>yb;
     }
     return 0;
 }
@@ -86,6 +94,7 @@ void opc(int i,int j)   {
             while (p>0&&(!cb[i][p]||(xb==i&&yb==p)))  p--;
             for (int b=p+1;b<=q-1;b++)
                 fobd[i][b]=1;
+            break;
         }
     }
     for (int q=j+1;q<=9;q++)    {
@@ -94,6 +103,7 @@ void opc(int i,int j)   {
             while (p<=9&&(!cb[i][p]||(xb==i&&yb==p)))  p++;
             for (int b=q+1;b<=p-1;b++)
                 fobd[i][b]=1;
+            break;
         }
     }
     for (int p=i-1;p>0;p--) {
@@ -102,6 +112,7 @@ void opc(int i,int j)   {
             while (r>0&&(!cb[r][j]||(xb==r&&yb==j)))  r--;
             for (int b=r+1;b<=p-1;b++)
                 fobd[b][j]=1;
+            break;
         }
     }
     for (int p=i+1;p<=10;p++) {
@@ -110,6 +121,7 @@ void opc(int i,int j)   {
             while (r<=10&&(!cb[r][j]||(xb==r&&yb==j)))  r++;
             for (int b=p+1;b<=r-1;b++)
                 fobd[b][j]=1;
+            break;
         }
     }
 }
@@ -141,4 +153,14 @@ void check(int i,int j) {
     if (i-1>=1&&!fobd[i-1][j])  {ok=true;return;}
     if (j+1<=6&&!fobd[i][j+1])  {ok=true;return;}
     if (j-1>=4&&!fobd[i][j-1])  {ok=true;return;}
+}
+
+
+bool fg()   {
+    int i=0;
+    if (yb!=yr) return false;
+    for (i=xr-1;i>=xb;i--)
+        if (cb[i][yb])  break;
+    if (i<xb)   return true;
+    else    return false;
 }
