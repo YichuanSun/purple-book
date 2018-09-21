@@ -14,9 +14,9 @@ int main()  {
             scanf("%c%d%d",&c,&t1,&t2);
             getchar();
             if (c=='H') h[t1][t2]=1;
-            else if (c=='V')    v[t1][t2]=1;
+            else if (c=='V')    v[t2][t1]=1;
         }
-        if (T++)    printf("**********************************\n\n");
+        if (T++)    printf("\n**********************************\n\n");
         printf("Problem #%d\n\n",T);
         for (int len=1;len<=n;len++)    {
             int sum=0;
