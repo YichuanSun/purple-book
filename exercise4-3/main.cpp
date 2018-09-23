@@ -1,3 +1,4 @@
+//WA了，没找出bug来
 #include <bits/stdc++.h>
 #define N 10
 using namespace std;
@@ -10,6 +11,7 @@ vector<pair<int,int> > pp;
 char nw,nx;
 string num;
 int main()  {
+    freopen("output.txt","wa",stdout);
     ios::sync_with_stdio(false);
     cin.tie(0);
     int n;
@@ -22,7 +24,6 @@ int main()  {
         cin>>nw;
         if (nw=='W')    nx='B';
         else if (nw=='B')   nx='W';
-        cout<<nw<<' '<<nx<<endl;
         cin>>ch;
         while (ch!='Q') {
             switch(ch)  {
@@ -32,6 +33,7 @@ int main()  {
             cin>>ch;
         }
         if (ch=='Q')    cbq();
+        if (n!=0)   cout<<endl;
     }
     return 0;
 }
@@ -51,25 +53,25 @@ void cbl(char nw,char nx)   {
 
 void cbm()   {
     cin>>num;
-    int i=num[0],j=num[1];
+    int i=num[0]-'0',j=num[1]-'0';
     if (!check(i,j))  swap(nx,nw);
     pp.clear();
     int it=i-1,jt;
     while (it>=1&&cb[it][j]==nx)    it--;
     if (it!=i-1&&it>=1&&cb[it][j]==nw)
-        for (int k=it+1;k<=i;k++)   cb[k][j]=nw;
+        for (int k=it;k<=i;k++)   cb[k][j]=nw;
     it=i+1;
     while (it<=8&&cb[it][j]==nx)    it++;
     if (it!=i+1&&it<=8&&cb[it][j]==nw)
-        for (int k=i+1;k<=it;k++)   cb[k][j]=nw;
+        for (int k=i;k<=it;k++)   cb[k][j]=nw;
     jt=j-1;
     while (jt>=1&&cb[i][jt]==nx)    jt--;
     if (jt!=j-1&&jt>=1&&cb[i][jt]==nw)
-        for (int k=jt+1;k<=j;k++)   cb[i][k]=nw;
+        for (int k=jt;k<=j;k++)   cb[i][k]=nw;
     jt=j+1;
     while (jt<=8&&cb[i][jt]==nx)    jt++;
     if (jt!=j+1&&jt<=8&&cb[i][jt]==nw)
-        for (int k=j+1;k<=jt;k++)   cb[i][k]=nw;
+        for (int k=j;k<=jt;k++)   cb[i][k]=nw;
     it=i-1,jt=j-1;
     while (it>=1&&jt>=1&&cb[it][jt]==nx)    it--,jt--;
     if (it!=i-1&&jt!=j-1&&it>=1&&jt>=1&&cb[it][jt]==nw)
@@ -92,7 +94,12 @@ void cbm()   {
             if (cb[i][j]=='B')  black++;
             else if (cb[i][j]=='W') white++;
         }
-    cout<<"Black - "<<black<<" White - "<<white<<endl;
+    cout<<"Black - ";
+    cout.width(2);
+    cout<<black;
+    cout<<" White - ";
+    cout.width(2);
+    cout<<white<<endl;
     swap(nx,nw);
 }
 
@@ -106,69 +113,52 @@ void cbq()  {
 
 bool check(int i,int j)
 {
-    if (cb[i][j]!='-')
-        return 0;
+    if (cb[i][j]!='-')  return 0;
     int it=i-1,jt;
-    while (it>=1&&cb[it][j]==nx)
-        it--;
-    if (it!=i-1&&it>=1&&cb[it][j]==nw)
-    {
+    while (it>=1&&cb[it][j]==nx)    it--;
+    if (it!=i-1&&it>=1&&cb[it][j]==nw){
         pp.push_back(make_pair(i,j));
         return 1;
     }
     it=i+1;
-    while (it<=8&&cb[it][j]==nx)
-        it++;
-    if (it!=i+1&&it<=8&&cb[it][j]==nw)
-    {
+    while (it<=8&&cb[it][j]==nx)    it++;
+    if (it!=i+1&&it<=8&&cb[it][j]==nw){
         pp.push_back(make_pair(i,j));
         return 1;
     }
     jt=j-1;
-    while (jt>=1&&cb[i][jt]==nx)
-        jt--;
-    if (jt!=j-1&&jt>=1&&cb[i][jt]==nw)
-    {
+    while (jt>=1&&cb[i][jt]==nx)    jt--;
+    if (jt!=j-1&&jt>=1&&cb[i][jt]==nw){
         pp.push_back(make_pair(i,j));
         return 1;
     }
     jt=j+1;
-    while (jt<=8&&cb[i][jt]==nx)
-        jt++;
-    if (jt!=j+1&&jt<=8&&cb[i][jt]==nw)
-    {
+    while (jt<=8&&cb[i][jt]==nx)    jt++;
+    if (jt!=j+1&&jt<=8&&cb[i][jt]==nw)  {
         pp.push_back(make_pair(i,j));
         return 1;
     }
     it=i-1,jt=j-1;
-    while (it>=1&&jt>=1&&cb[it][jt]==nx)
-        it--,jt--;
-    if (it!=i-1&&jt!=j-1&&it>=1&&jt>=1&&cb[it][jt]==nw)
-    {
+    while (it>=1&&jt>=1&&cb[it][jt]==nx)    it--,jt--;
+    if (it!=i-1&&jt!=j-1&&it>=1&&jt>=1&&cb[it][jt]==nw) {
         pp.push_back(make_pair(i,j));
         return 1;
     }
     it=i-1,jt=j+1;
-    while (it>=1&&jt<=8&&cb[it][jt]==nx)
-        it--,jt++;
-    if (it!=i-1&&jt!=j+1&&it>=1&&jt<=8&&cb[it][jt]==nw)
-    {
+    while (it>=1&&jt<=8&&cb[it][jt]==nx)    it--,jt++;
+    if (it!=i-1&&jt!=j+1&&it>=1&&jt<=8&&cb[it][jt]==nw) {
         pp.push_back(make_pair(i,j));
         return 1;
     }
     it=i+1,jt=j-1;
-    while (it<=8&&jt>=1&&cb[it][jt]==nx)
-        it++,jt--;
-    if (it!=i+1&&jt!=j-1&&it<=8&&jt>=1&&cb[it][jt]==nw)
-    {
+    while (it<=8&&jt>=1&&cb[it][jt]==nx)    it++,jt--;
+    if (it!=i+1&&jt!=j-1&&it<=8&&jt>=1&&cb[it][jt]==nw) {
         pp.push_back(make_pair(i,j));
         return 1;
     }
     it=i+1,jt=j+1;
-    while (it<=8&&jt<=8&&cb[it][jt]==nx)
-        it++,jt++;
-    if (it!=i+1&&jt!=j+1&&it<=8&&jt<=8&&cb[it][jt]==nw)
-    {
+    while (it<=8&&jt<=8&&cb[it][jt]==nx)    it++,jt++;
+    if (it!=i+1&&jt!=j+1&&it<=8&&jt<=8&&cb[it][jt]==nw) {
         pp.push_back(make_pair(i,j));
         return 1;
     }
