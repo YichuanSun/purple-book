@@ -5,12 +5,10 @@ map<int,int> qnum;
 set<int> sjud;
 typedef queue<int> qi;
 qi qq;          //标记当前总队列
-qi cache[N];
+qi cache[N];    //所有在排队的队伍的队员先后顺序，下标表示队伍号
 void enqueue();
 void dequeue();
 int main()  {
-    freopen("input.txt","ra",stdin);
-    freopen("output.txt","wa",stdout);
     int n,m,num,cnt=0;
     cin>>n;
     while (n!=0)    {
@@ -51,9 +49,13 @@ void enqueue()  {
 }
 
 void dequeue()  {
+    if (qq.empty()) return;
     if (!cache[qq.front()].empty()) {
         cout<<cache[qq.front()].front()<<endl;
         cache[qq.front()].pop();
     }
-    if (cache[qq.front()].empty()&&!qq.empty())  qq.pop();
+    if (cache[qq.front()].empty()&&!qq.empty())  {
+        sjud.erase(qq.front());
+        qq.pop();
+    }
 }
