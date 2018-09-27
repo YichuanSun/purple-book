@@ -17,6 +17,8 @@ int main()  {
     cin>>n;
     return 0;
 }
+
+//下面这个是强行模拟的超时算法
 //bool tree[1<<20+5];
 //int dfs(int i);
 //int n,d,l,a;
