@@ -31,7 +31,10 @@ void buildNode(int v,char *a)    {
             nw=nw->right;
         }
     }
-    if (nw->used)   failed=false;
+    if (nw->used)   {
+        failed=false;
+        cout<<"sfjaf"<<endl;
+    }
     nw->val=v;
     nw->used=true;
 }
@@ -50,14 +53,36 @@ bool read_input()   {
     return true;
 }
 
+bool juf(){
+    if (failed) return true;
+    else {
+        printf("not complete\n");
+        return false;
+    }
+}
+
 void bfs()  {
-    if (failed==false)  {
+    if (!failed) {}
         printf("not complete\n");
         return;
     }
     qn.push(root);
+    if (!root->used)    {
+        failed=false;
+        juf();
+        ans.clear();
+        while (!qn.empty()) qn.pop();
+        return;
+    }
     while (!qn.empty()) {
         node* p=qn.front();qn.pop();
+        if (!p->used)    {
+            failed=false;
+            juf();
+            ans.clear();
+            while (!qn.empty()) qn.pop();
+            return;
+        }
         if (p->left)    qn.push(p->left);
         if (p->right)   qn.push(p->right);
         ans.push_back(p->val);
