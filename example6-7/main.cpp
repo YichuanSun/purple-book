@@ -31,10 +31,7 @@ void buildNode(int v,char *a)    {
             nw=nw->right;
         }
     }
-    if (nw->used)   {
-        failed=false;
-        cout<<"sfjaf"<<endl;
-    }
+    if (nw->used)   failed=false;
     nw->val=v;
     nw->used=true;
 }
@@ -62,7 +59,7 @@ bool juf(){
 }
 
 void bfs()  {
-    if (!failed) {}
+    if (!failed) {
         printf("not complete\n");
         return;
     }
@@ -95,6 +92,7 @@ void bfs()  {
 }
 
 int main()  {
+    freopen("output.txt","wa",stdout);
     while (read_input())    bfs();
     return 0;
 }
