@@ -3,11 +3,9 @@
 using namespace std;
 int si[N];
 int main()  {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
     int n,cnt=0;
-    while (cin>>n&&n)   {
-        if (cnt++)  cout<<endl;
+    while (scanf("%d",&n)&&n)   {
+        if (cnt++)  printf("\n");
         bool flag=false;
         for (int i=1234;i<=98765;i++)    {
             bool f=true;
@@ -25,7 +23,7 @@ int main()  {
             }
             for (int i=0;i<10;i++)
                 if (si[i]>1)    {f=false;break;}
-            if (f)  {printf("%d / %05d = %d\n",i*n,i,n);flag=true;}
+            if (f)  {printf("%05d / %05d = %d\n",i*n,i,n);flag=true;}
             fill(si,si+10,0);
         }
         if (!flag)  printf("There are no solutions for %d.\n",n);
