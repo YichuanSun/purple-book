@@ -18,5 +18,6 @@ bool solve(int &W)    {
     bool l=true,r=true;
     if (!w1)    l=solve(w1);
     if (!w2)    r=solve(w2);
+    W=w1+w2;
     return l&&r&&(w1*d1==w2*d2);
 }
