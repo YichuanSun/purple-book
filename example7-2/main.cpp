@@ -17,7 +17,7 @@ int main()  {
     }
     return 0;
 }
-
+//下面的预处理版本，无法对付输入里面元素含0的情况
 //int a[N],cnt,n;
 //long long tms[N],ans;
 //int main()  {
