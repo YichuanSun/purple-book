@@ -10,7 +10,12 @@ int main()  {
     int n;
     cin>>n;
     for (int i=0;i<n;i++)   cin>>s[i];
-    psp(n,s,a,0);
+    //psp(n,s,a,0);
+    do  {
+        cout<<s[0];
+        for (int i=1;i<n;i++)   cout<<' '<<s[i];
+        cout<<endl;
+    }while (next_permutation(s,s+n));
     return 0;
 }
 
