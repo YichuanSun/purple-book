@@ -2,17 +2,23 @@
 #define N 20
 using namespace std;
 //bool used[N];
-int isp[N*N]={0,0,1},n;   //0为未处理，1为素数，2为合数
+int isp[N*N]= {0,0,1},n;  //0为未处理，1为素数，2为合数
 //vector<int> ans;
 //void sech(int now,int rmn);
-void preope(){
-    for (int i=1;i<N;i++)   {
-        for (int j=1;j<N;j++)   {
-            if (isp[i+j]==0)    {
+void preope()
+{
+    for (int i=1; i<N; i++)
+    {
+        for (int j=1; j<N; j++)
+        {
+            if (isp[i+j]==0)
+            {
                 int sum=i+j;
-                for (int t=2;t*t<=sum;t++)
-                    if (sum%t==0)   isp[sum]=2;
-                if (isp[sum]==0)    isp[sum]=1;
+                for (int t=2; t*t<=sum; t++)
+                    if (sum%t==0)
+                        isp[sum]=2;
+                if (isp[sum]==0)
+                    isp[sum]=1;
             }
         }
     }
@@ -78,23 +84,34 @@ void preope(){
 
 //下面是汝佳大佬的dfs算法
 int A[N],vis[N];
-void dfs(int cur)   {
-    if (cur==n&&isp[A[0]+A[n-1]])   {
-        for (int i=0;i<n;i++)   printf("%d ",A[i]);
+void dfs(int cur)
+{
+    if(cur == n && isp[A[0]+A[n-1]]==1)
+    {
+        for(int i = 0; i < n; i++)
+        {
+            if(i != 0)
+                printf(" ");
+            printf("%d", A[i]);
+        }
         printf("\n");
     }
-    else for (int i=2;i<=n;i++)
-        if (!vis[i]&&isp[i+A[cur-1]])   {
-            A[cur]=i;
-            vis[i]=1;
-            dfs(cur+1);
-            vis[i]=0;
-        }
+    else
+        for(int i = 2; i <= n; i++)
+            if(!vis[i] && isp[i+A[cur-1]]==1)
+            {
+                A[cur] = i;
+                vis[i] = 1;
+                dfs(cur+1);
+                vis[i] = 0;
+            }
 }
 
-int main()  {
+int main()
+{
     preope();
-    while (scanf("%d",&n)!=EOF) {
+    while (scanf("%d",&n)!=EOF)
+    {
         fill(vis,vis+n,false);
         A[0]=1;
         dfs(1);
