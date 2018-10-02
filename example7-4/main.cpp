@@ -17,7 +17,7 @@ void preope(){
         }
     }
 }
-
+//下面是我自己写的算法
 //int main()  {
 //    int cnt=0;
 //    preope();
@@ -53,31 +53,54 @@ void preope(){
 //        }
 //    }
 //}
-int A[N];
+
+//下面是直接生成全部排列再枚举判断的算法
+//int A[N];
+//int main()  {
+//    preope();
+//    int n;
+//    while (scanf("%d",&n)!=EOF) {
+//        for (int i=0;i<n;i++)   A[i]=i+1;
+//        do {
+//            int e=1;
+//            for (int i=1;i<n;i++)
+//                if (isp[A[i]+A[i-1]]!=1)    {e=0;break;}
+//            if (isp[A[0]+A[n-1]]!=1)    e=0;
+//            if (e)  {
+//                for (int i=0;i<n;i++)
+//                    printf("%d ",A[i]);
+//                printf("\n");
+//            }
+//        }while (next_permutation(A+1,A+n));
+//    }
+//    return 0;
+//}
+
+//下面是汝佳大佬的dfs算法
+int A[N],vis[N];
+void dfs(int cur)   {
+    if (cur==n&&isp[A[0]+A[n-1]])   {
+        for (int i=0;i<n;i++)   printf("%d ",A[i]);
+        printf("\n");
+    }
+    else for (int i=2;i<=n;i++)
+        if (!vis[i]&&isp[i+A[cur-1]])   {
+            A[cur]=i;
+            vis[i]=1;
+            dfs(cur+1);
+            vis[i]=0;
+        }
+}
 
 int main()  {
     preope();
-    int n;
     while (scanf("%d",&n)!=EOF) {
-        for (int i=0;i<n;i++)   A[i]=i+1;
-        do {
-            int e=1;
-            for (int i=1;i<n;i++)
-                if (isp[A[i]+A[i-1]]!=1)    {e=0;break;}
-            if (isp[A[0]+A[n-1]]!=1)    e=0;
-            if (e)  {
-                for (int i=0;i<n;i++)
-                    printf("%d ",A[i]);
-                printf("\n");
-            }
-        }while (next_permutation(A+1,A+n));
+        fill(vis,vis+n,false);
+        A[0]=1;
+        dfs(1);
     }
     return 0;
 }
-
-
-
-
 
 
 
