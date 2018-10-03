@@ -24,7 +24,7 @@ bool init() {
 }
 
 int main()  {
-    freopen("out.txt","wa",stdout);
+    //freopen("out.txt","wa",stdout);
     int kase=1;
     while (init())    {
         int p=0;
