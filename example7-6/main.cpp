@@ -17,13 +17,16 @@ int main()  {
         for (int i=0;i<N;i++)
             if (spot[i])    stv[ct++]=i;
         do  {
-            int almx=0;
+            int almx=0,flag=0;
             for (int i=0;i<ct;i++)  {
+                if (flag)   break;
                 int mx=-1;
                 for (int j=0;j<ct;j++)  {
+                    if (flag)   break;
                     if (stv[i]==stv[j]) continue;
                     if (!g[stv[i]][stv[j]]) continue;
                     mx=max(mx,abs(i-j));
+                    if (mx>=ans)    flag=1;
                 }
                 almx=max(almx,mx);
             }
