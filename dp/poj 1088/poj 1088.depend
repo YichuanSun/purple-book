@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1539089992 source:d:\code resourse\purple book\dp\poj 1088\main.cpp
+	<iostream>
+	<algorithm>
+	<vector>
+
