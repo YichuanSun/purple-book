@@ -1,4 +1,8 @@
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <cmath>
 #define N 1005
 using namespace std;
 
@@ -25,13 +29,13 @@ int main()  {
         //cout<<"OK"<<endl;
     }
     UFset();    //因为之前n还未被初始化，一直为0，而该函数初始化数组需要n，所以这句话在n被定义之前无效
-    cout<<"pii:\t"<<pii.size()<<endl;
+    //cout<<"pii:\t"<<pii.size()<<endl;
     for (int i=0;i<(int)pii.size();i++) {
         for (int j=i;j<(int)pii.size();j++)   {
             te.v1=i,te.v2=j;    //无向图，又忘了，边得输入两次
             if (i==j)   te.cost=0;
             else    te.cost=len(i,j);
-            cout<<te.cost<<endl;
+            //cout<<te.cost<<endl;
             ve.push_back(te);
             //swap(te.v1,te.v2);
             //ve.push_back(te);
@@ -47,10 +51,10 @@ int main()  {
 //        cout<<parent[i]<<' ';
 //    cout<<endl;
     sort(ve.begin(),ve.end(),cmp);
-    cout<<"TABLE\n";
-    for (int i=0;i<(int)ve.size();i++)
-        cout<<ve[i].v1<<' '<<ve[i].v2<<' '<<ve[i].cost<<endl;
-    cout<<"ve:\t"<<ve.size()<<endl;
+    //cout<<"TABLE\n";
+//    for (int i=0;i<(int)ve.size();i++)
+//        cout<<ve[i].v1<<' '<<ve[i].v2<<' '<<ve[i].cost<<endl;
+    //cout<<"ve:\t"<<ve.size()<<endl;
     for (int i=0;i<(int)ve.size();i++)  {
         if (!same(ve[i].v1,ve[i].v2))   {
             Union(ve[i].v1,ve[i].v2);
@@ -62,11 +66,10 @@ int main()  {
 
 double len(int a,int b) {
     double dx=pii[a].first-pii[b].first;
-    double dy=pii[a].second-pii[a].second;
-    cout<<"dxdy:\t"<<dx<<' '<<dy<<endl;
-    double ans=sqrt(1.0*dx*dx+1.0*dy*dy);
-    cout<<ans<<endl;
-    return ans;
+    double dy=pii[a].second-pii[b].second;
+    //cout<<"dxdy:\t"<<dx<<' '<<dy<<endl;
+    //cout<<ans<<endl;
+    return sqrt(1.0*dx*dx+1.0*dy*dy);
 }
 
 void UFset()    {fill(parent,parent+n,-1);}
