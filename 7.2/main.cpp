@@ -86,10 +86,3 @@ void psp_version3(int n,int s[],int a[],int cur)    {
                 }
             }
 }
-
-
-
-
-
-
-
